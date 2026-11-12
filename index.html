@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AKA · Pedro Jatobá · Sites e sistemas no ar</title>
+<meta name="description" content="Portfólio de Pedro Jatobá, desenvolvedor. Kolly Crochê, Bilhetei e Express Counter: três produtos criados do zero e no ar.">
+<meta name="theme-color" content="#0d0314">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AKA · Pedro Jatobá · Sites e sistemas no ar">
+<meta property="og:description" content="Kolly Crochê, Bilhetei e Express Counter: três produtos criados do zero e no ar.">
+<link rel="preload" href="assets/anton.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" type="image/webp" href="assets/logo.webp">
+<style>
+@font-face{font-family:"Anton";src:url(assets/anton.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Bricolage Grotesque";src:url(assets/bricolage.woff2) format("woff2");font-weight:200 800;font-display:swap}
+
+/* Cores tiradas da logo: roxo #a100ff, contorno #2a003c, branco. --hi é o mesmo roxo clareado, para texto pequeno.
+   Regra de forma: tudo com canto reto e sombra dura; só a moldura do celular é arredondada. */
+:root{
+  color-scheme:dark;
+  --bg:#0d0314; --surface:#1a0826; --ink:#2a003c; --accent:#a100ff; --hi:#d596ff; --text:#faf8fc; --muted:#c6b6d6;
+  --display:"Anton","Arial Narrow",Impact,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1); --slam:cubic-bezier(.2,1.4,.4,1);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font:400 1.0625rem/1.55 "Bricolage Grotesque",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+/* corta o que vaza pelos lados (logo, cards tortos). No body não funciona: lá o overflow vai para o viewport e o celular ainda arrasta a página de lado */
+main{overflow-x:hidden;overflow-x:clip}
+/* granulado de xerox por cima de tudo */
+body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.09;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+svg{flex:none;width:22px;height:22px}
+:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.wrap{width:min(100% - 2rem,70rem);margin-inline:auto}
+.bar{position:fixed;inset:0 0 auto;height:4px;z-index:50;background:var(--hi);transform-origin:0 50%;scale:0 1}
+
+/* topo */
+.top{display:flex;align-items:center;justify-content:space-between;height:64px}
+.who{display:inline-flex;align-items:center;gap:.4em;min-height:44px;font:400 1.125rem/1 var(--display);text-transform:uppercase;letter-spacing:.05em}
+.who span{color:var(--hi)}
+.socials{display:flex;gap:.7rem}
+.icon-link{display:grid;place-items:center;width:44px;height:44px;border:2px solid var(--text);background:var(--bg);box-shadow:3px 3px 0 var(--accent);transition:transform .12s,box-shadow .12s,background-color .2s}
+.icon-link:hover{background:var(--accent)}
+.icon-link:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--accent)}
+
+/* hero */
+.hero{display:grid;gap:1.25rem;padding:.25rem 0 2rem}
+.logo{order:-1;position:relative;isolation:isolate;animation:slam .8s var(--slam) both}
+.logo::before{content:"";position:absolute;inset:-8% -12%;z-index:-1;opacity:.75;background:radial-gradient(circle,var(--accent) 1.6px,transparent 2.1px) 0 0/12px 12px;-webkit-mask:radial-gradient(closest-side,#000 30%,transparent);mask:radial-gradient(closest-side,#000 30%,transparent)}
+.logo img{width:114%;max-width:none;margin-left:-7%;rotate:-4deg}
+@keyframes slam{from{opacity:0;scale:1.5;rotate:-12deg}}
+h1{font:400 clamp(2.75rem,12.4vw,6rem)/1.02 var(--display);text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+h1 em{display:inline-block;font-style:normal;white-space:nowrap;background:var(--accent);color:#fff;padding:.05em .16em 0;margin:0 .05em;rotate:-3deg;box-shadow:4px 4px 0 var(--text)}
+.lead{color:var(--muted);font-size:1.125rem;max-width:36ch}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.5rem}
+.btn{--sh:var(--text);display:inline-flex;align-items:center;gap:.55rem;min-height:54px;padding:0 1.25rem;border:2px solid var(--text);background:var(--accent);color:#fff;box-shadow:5px 5px 0 var(--sh);font:400 1.125rem/1 var(--display);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--sh)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--sh)}
+.btn--light{--sh:var(--ink);background:#fff;color:var(--ink);border-color:var(--ink)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.rise{animation:rise .7s var(--ease) both;animation-delay:calc(var(--i,0) * 90ms + 250ms)}
+
+/* fita */
+.tape-wrap{padding:1.25rem 0 2.75rem}
+.tape{width:110%;margin-left:-5%;overflow:clip;background:var(--accent);border-block:2px solid var(--text);padding:.6rem 0 .5rem;rotate:-2deg}
+.tape-track{display:flex;width:max-content;font:400 1.5rem/1 var(--display);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;animation:tape 24s linear infinite}
+.tape-track span{padding-right:.5em}
+@keyframes tape{to{translate:-33.333%}}
+
+/* projetos */
+.mega{font:400 clamp(4.5rem,23vw,11rem)/.9 var(--display);text-transform:uppercase;letter-spacing:.01em;text-shadow:3px 3px 0 var(--ink),6px 6px 0 var(--accent)}
+.grid{display:grid;gap:2.5rem;margin-top:2rem}
+.card{position:relative;display:grid;background:var(--surface);border:2px solid var(--text);box-shadow:8px 8px 0 var(--accent)}
+.stage{background:radial-gradient(circle,var(--dot) 1.3px,transparent 1.8px) 0 0/11px 11px,var(--stage);border-bottom:2px solid var(--text);aspect-ratio:1/1.02;overflow:hidden;padding-top:10%}
+.card--feat .stage{aspect-ratio:1/1.12}
+.phone{width:58%;aspect-ratio:390/800;margin-inline:auto;border:5px solid #0a0210;border-radius:30px;overflow:hidden;background:#0a0210;box-shadow:8px 8px 0 var(--shade);rotate:-3deg}
+.card--feat .phone{width:62%}
+/* sem suporte a animação por scroll: o screenshot rola sozinho quando o card está na tela */
+.phone img{transition:transform 6s cubic-bezier(.45,0,.25,1)}
+.card.in .phone img{transform:translateY(calc(var(--pan) * -1))}
+.info{padding:1.25rem 1.25rem 1.6rem}
+.kind{color:var(--muted);font-size:.9375rem}
+h3{font:400 2.5rem/1 var(--display);text-transform:uppercase;letter-spacing:.01em;margin-top:.3rem}
+h3 a::after{content:"";position:absolute;inset:0} /* card inteiro clicável */
+.desc{color:var(--muted);margin-top:.7rem;max-width:46ch}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;list-style:none;padding:0;margin-top:1rem}
+.tags li{border:1.5px solid var(--muted);padding:.15rem .6rem;font-size:.875rem;font-weight:600}
+.go{display:inline-flex;align-items:center;gap:.35rem;margin-top:1.15rem;font-weight:700;color:var(--hi);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.go svg{width:18px;height:18px;transition:transform .2s var(--ease)}
+.card:hover .go svg{transform:translate(3px,-3px)}
+
+/* contato */
+.contact{margin-top:clamp(4.5rem,10vw,7rem);background:var(--accent);border-block:2px solid var(--text);padding:clamp(3rem,9vw,6rem) 0}
+.contact h2{font:400 clamp(3rem,14vw,6.5rem)/.98 var(--display);text-transform:uppercase;letter-spacing:.01em;text-shadow:4px 4px 0 var(--ink);text-wrap:balance}
+.contact .lead{color:#fff;margin-top:1.1rem}
+.links{list-style:none;padding:0;margin-top:2.75rem;border-top:2px solid var(--ink)}
+.links a{display:flex;align-items:center;gap:.85rem;min-height:68px;padding-inline:.35rem;border-bottom:2px solid var(--ink);font-weight:700;transition:background-color .15s}
+.links a:hover{background:var(--ink)}
+.links small{margin-left:auto;font-size:.9375rem;font-weight:500;overflow-wrap:anywhere;text-align:right}
+.links a > svg:last-child{width:18px;height:18px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 0 calc(1.5rem + env(safe-area-inset-bottom));color:var(--muted);font-size:.9375rem}
+.foot img{width:104px}
+
+/* entrada ao rolar: o elemento chega torto e "bate" no lugar */
+.js [data-reveal]{opacity:0;translate:0 56px;scale:.92;rotate:var(--from,-6deg);transition:opacity .45s var(--ease),translate .75s var(--slam),scale .75s var(--slam),rotate .75s var(--slam),box-shadow .2s}
+.js [data-reveal].seen{opacity:1;translate:0 0;scale:1;rotate:var(--tilt,0deg)}
+.js .card:nth-child(even){--from:6deg}
+@media (hover:hover){.js .card.seen:hover{translate:-4px -4px;box-shadow:12px 12px 0 var(--accent)}}
+
+/* animações presas ao scroll (Chrome/Android e Safari 26+); nos outros valem as versões acima */
+@supports (animation-timeline:view()){
+  .bar{animation:grow linear both;animation-timeline:scroll(root)}
+  .logo img{animation:peel linear both;animation-timeline:scroll(root);animation-range:0 640px}
+  .tape-track{animation:tape-scroll linear both;animation-timeline:view()}
+  .stage{view-timeline:--stage}
+  .phone{animation:tilt linear both;animation-timeline:--stage}
+  .phone img{animation:pan linear both;animation-timeline:--stage;animation-range:contain 0% contain 100%}
+}
+@keyframes grow{to{scale:1 1}}
+@keyframes peel{to{rotate:var(--peel,5deg);scale:.84;translate:0 70px}}
+@keyframes tape-scroll{to{translate:-30%}}
+@keyframes tilt{from{rotate:-6deg}to{rotate:5deg}}
+@keyframes pan{from{transform:none}to{transform:translateY(calc(var(--pan) * -1))}} /* from explícito: sem ele o ponto de partida herdaria o pan automático do .in */
+
+@media (min-width:54rem){
+  .wrap{width:min(100% - 4rem,70rem)}
+  .top{height:76px}
+  .hero{grid-template-columns:1fr 1fr;column-gap:2rem;row-gap:1.75rem;align-items:center;padding:1.25rem 0 3rem}
+  h1{grid-column:1/-1}
+  .logo{order:0}
+  .logo img{width:112%;margin-left:-4%;rotate:4deg;--peel:-5deg}
+  .tape-track{font-size:2rem}
+  .grid{grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem}
+  .stage{aspect-ratio:1/.92}
+  .phone{width:46%}
+  .info{padding:1.75rem 1.75rem 2rem}
+  .card--feat{grid-column:1/-1;grid-template-columns:1.1fr 1fr}
+  .card--feat .stage{aspect-ratio:auto;height:31rem;padding-top:3rem;border-bottom:0;border-right:2px solid var(--text)}
+  .card--feat .phone{width:min(46%,17rem)}
+  .card--feat .info{align-self:center;padding:2.75rem}
+  .card--feat h3{font-size:4rem}
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .links{margin-top:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js [data-reveal]{opacity:1;translate:0 0;scale:1;rotate:var(--tilt,0deg)}
+  .card.in .phone img{transform:none}
+}
+</style>
+</head>
+<body>
+<div class="bar" aria-hidden="true"></div>
+
+<header class="wrap top">
+  <a class="who" href="#topo">Pedro Jatobá <span>/ dev</span></a>
+  <nav class="socials" aria-label="Redes">
+    <a class="icon-link" href="https://instagram.com/aka.pedr0" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>
+    </a>
+    <a class="icon-link" href="https://github.com/akaPedro" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg>
+    </a>
+  </nav>
+</header>
+
+<main id="topo">
+  <section class="wrap hero">
+    <h1 class="rise">Sites e sistemas que já estão <em>no ar</em>, vendendo.</h1>
+    <div class="pitch rise" style="--i:1">
+      <p class="lead">Sou o Pedro, desenvolvedor. Faço o produto inteiro: design, código, pagamento e publicação.</p>
+      <div class="actions">
+        <a class="btn" href="https://wa.me/5599984099638?text=Oi%20Pedro!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="logo"><img src="assets/logo.webp" width="1774" height="887" alt="AKA, logo de Pedro Jatobá" fetchpriority="high"></div>
+  </section>
+
+  <div class="tape-wrap" aria-hidden="true">
+    <div class="tape"><div class="tape-track">
+      <span>Sites // Lojas online // Sistemas // Pix // QR Code // PDV // Estoque // Entregas // IA //</span>
+      <span>Sites // Lojas online // Sistemas // Pix // QR Code // PDV // Estoque // Entregas // IA //</span>
+      <span>Sites // Lojas online // Sistemas // Pix // QR Code // PDV // Estoque // Entregas // IA //</span>
+    </div></div>
+  </div>
+
+  <section class="wrap work" id="projetos">
+    <h2 class="mega" data-reveal style="--tilt:-2deg">Projetos</h2>
+    <div class="grid">
+
+      <article class="card card--feat" data-reveal style="--tilt:-1deg">
+        <div class="stage" style="--stage:var(--accent);--dot:rgba(255,255,255,.22);--shade:var(--ink)">
+          <div class="phone"><img src="assets/kolly.webp" width="585" height="3675" style="--pan:67.3%" alt="Site da Kolly Crochê aberto no celular" decoding="async"></div>
+        </div>
+        <div class="info">
+          <p class="kind">Loja sob encomenda</p>
+          <h3><a href="https://kollycroche.netlify.app/" target="_blank" rel="noopener">Kolly Crochê</a></h3>
+          <p class="desc">Mostruário de peças de crochê feitas à mão. A cliente escolhe tamanho e cor, monta a sacola e o pedido chega pronto no WhatsApp.</p>
+          <ul class="tags"><li>Mostruário</li><li>Sacola</li><li>Pedido no WhatsApp</li></ul>
+          <span class="go">kollycroche.netlify.app <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+        </div>
+      </article>
+
+      <article class="card" data-reveal style="--tilt:1deg">
+        <div class="stage" style="--stage:var(--ink);--dot:rgba(161,0,255,.55);--shade:var(--accent)">
+          <div class="phone"><img src="assets/bilhetei.webp" width="585" height="2850" style="--pan:57.4%" alt="Site do Bilhetei aberto no celular" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="info">
+          <p class="kind">Plataforma de ingressos</p>
+          <h3><a href="https://bilhetei.com/" target="_blank" rel="noopener">Bilhetei</a></h3>
+          <p class="desc">Ingressos vendidos no Pix, com QR Code na hora. Quem organiza controla a portaria pelo celular e recebe direto na conta.</p>
+          <ul class="tags"><li>Pix</li><li>QR Code</li><li>Portaria no celular</li></ul>
+          <span class="go">bilhetei.com <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+        </div>
+      </article>
+
+      <article class="card" data-reveal style="--tilt:-1deg">
+        <div class="stage" style="--stage:#f4edfb;--dot:rgba(42,0,60,.3);--shade:var(--accent)">
+          <div class="phone"><img src="assets/express.webp" width="585" height="2100" style="--pan:42.9%" alt="Site do Express Counter aberto no celular" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="info">
+          <p class="kind">Sistema para lojas de material de construção</p>
+          <h3><a href="https://expresscounter.com.br/" target="_blank" rel="noopener">Express Counter</a></h3>
+          <p class="desc">Balcão, estoque, loja online e entregas com rastreio em um sistema só. Emite nota fiscal e usa IA para simular a cor da parede.</p>
+          <ul class="tags"><li>PDV</li><li>Estoque</li><li>Loja online</li><li>Rastreio de entrega</li><li>IA de cores</li></ul>
+          <span class="go">expresscounter.com.br <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <div>
+        <h2 data-reveal>Tem um projeto em mente?</h2>
+        <p class="lead">Site, loja online ou sistema sob medida. Me conta o que você precisa.</p>
+        <div class="actions">
+          <a class="btn btn--light" href="https://wa.me/5599984099638?text=Oi%20Pedro!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener">
+            <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/></svg>
+            Chamar no WhatsApp
+          </a>
+        </div>
+      </div>
+      <ul class="links" data-reveal style="--from:4deg">
+        <li><a href="https://instagram.com/aka.pedr0" target="_blank" rel="noopener">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"/></svg>
+          Instagram <small>@aka.pedr0</small>
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>
+        </a></li>
+        <li><a href="https://github.com/akaPedro" target="_blank" rel="noopener">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg>
+          GitHub <small>akaPedro</small>
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>
+        </a></li>
+        <li><a href="mailto:phsousajatoba@gmail.com">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>
+          E-mail <small>phsousajatoba@gmail.com</small>
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <img src="assets/logo.webp" width="1774" height="887" alt="" loading="lazy">
+  <p>Pedro Jatobá · 2026</p>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+// "seen" dispara a entrada; "in" liga o pan automático do screenshot (usado só onde não há animação por scroll)
+const io = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.intersectionRatio >= .15) e.target.classList.add('seen');
+  if (e.intersectionRatio >= .5) e.target.classList.add('in');
+  else if (!e.isIntersecting) e.target.classList.remove('in');
+}), { threshold: [0, .15, .5] });
+document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

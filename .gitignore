@@ -1,0 +1,5 @@
+# Local Netlify folder
+.netlify
+
+# Configuração local do Claude Code
+.claude/
