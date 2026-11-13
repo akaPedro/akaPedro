@@ -29,10 +29,10 @@ Desenvolvedor full stack. Crio o produto inteiro, do design ao deploy: sites, lo
 
 <div align="center">
 
-<a href="https://kollycroche.netlify.app/"><img src=".github/readme/cards/kolly.svg" width="410" alt="Kolly Crochê, loja sob encomenda: mostruário de peças de crochê feitas à mão, com sacola e pedido pelo WhatsApp. HTML, CSS, JavaScript e Netlify."></a>
-<a href="https://bilhetei.com/"><img src=".github/readme/cards/bilhetei.svg" width="410" alt="Bilhetei, plataforma de ingressos: venda no Pix com QR Code na hora e portaria pelo celular. Next.js, React e TypeScript."></a>
-<a href="https://expresscounter.com.br/"><img src=".github/readme/cards/express.svg" width="410" alt="Express Counter, sistema para lojas de material de construção: balcão, estoque, loja online, entregas com rastreio e IA de cores. Node.js, Express e Leaflet."></a>
-<a href="https://akapedr0.netlify.app"><img src=".github/readme/cards/portfolio.svg" width="410" alt="Portfólio AKA, link da bio: página única com animações de scroll em CSS puro. HTML e CSS."></a>
+<a href="https://kollycroche.netlify.app/"><img src=".github/readme/cards/kolly.svg" width="400" alt="Kolly Crochê, loja sob encomenda: mostruário de peças de crochê feitas à mão, com sacola e pedido pelo WhatsApp. HTML, CSS, JavaScript e Netlify."></a>
+<a href="https://bilhetei.com/"><img src=".github/readme/cards/bilhetei.svg" width="400" alt="Bilhetei, plataforma de ingressos: venda no Pix com QR Code na hora e portaria pelo celular. Next.js, React e TypeScript."></a>
+<a href="https://expresscounter.com.br/"><img src=".github/readme/cards/express.svg" width="400" alt="Express Counter, sistema para lojas de material de construção: balcão, estoque, loja online, entregas com rastreio e IA de cores. Node.js, Express e Leaflet."></a>
+<a href="https://akapedr0.netlify.app"><img src=".github/readme/cards/portfolio.svg" width="400" alt="Portfólio AKA, link da bio: página única com animações de scroll em CSS puro. HTML e CSS."></a>
 
 </div>
 </details>
